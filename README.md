@@ -1,2 +1,2 @@
 # Leetcode
-Giải một số thử thách trên leetcode
+Luyện tập với một số thử thách trên Leetcode
