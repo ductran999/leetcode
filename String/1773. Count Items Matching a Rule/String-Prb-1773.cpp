@@ -19,8 +19,8 @@ public:
 
 int main(){
     vector<vector<string>> items = {{"phone","blue","pixel"},{"computer","silver","lenovo"},{"phone","gold","iphone"}};
-    std::string ruleValue = "color";
-	std::string ruleKey = "silver";
+    std::string ruleValue = "silver";
+	std::string ruleKey = "color";
     int numberOfValidItem =  (new Solution)-> countMatches(items, ruleKey, ruleValue);
 	cout << numberOfValidItem << endl;
 
