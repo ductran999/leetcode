@@ -6,18 +6,17 @@ import "fmt"
 func findMaxAverage(nums []int, k int) float64 {
 	maxSum := 0
 
+	// first window
 	for i := 0; i < k; i++ {
 		maxSum += nums[i]
 	}
 
-	// target find the window have total elements is max
 	sum := maxSum
-	for r := k; r < len(nums); r++ {
-		// shift window
-		sum += nums[r]
-		sum -= nums[r-k]
+	for i := k; i < len(nums); i++ {
+		// Shift window to right by subtract left element and add right element
+		sum += nums[i]
+		sum -= nums[i-k]
 
-		// update new max
 		if sum > maxSum {
 			maxSum = sum
 		}
@@ -27,8 +26,8 @@ func findMaxAverage(nums []int, k int) float64 {
 }
 
 func main() {
-	arr := []int{1, 12, -5, -6, 50, 3}
+	nums := []int{1, 12, -5, -6, 50, 3}
 	k := 4
 
-	fmt.Printf("%.2f", findMaxAverage(arr, k))
+	fmt.Println(findMaxAverage(nums, k))
 }
