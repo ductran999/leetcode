@@ -27,7 +27,33 @@ func findLHS(nums []int) int {
 	return res
 }
 
+func max(a, b int) int {
+	if a < b {
+		return b
+	}
+	return a
+}
+
+// solve by hashMap
+func findLHSHashMap(nums []int) int {
+	freq := make(map[int]int)
+
+	for _, val := range nums {
+		freq[val]++
+	}
+
+	res := 0
+	for k, val := range freq {
+		if freq[k+1] != 0 {
+			l := val + freq[k+1]
+			res = max(l, res)
+		}
+	}
+
+	return res
+}
+
 func main() {
 	nums := []int{1, 1, 1, 1}
-	fmt.Println(findLHS(nums))
+	fmt.Println(findLHSHashMap(nums))
 }
