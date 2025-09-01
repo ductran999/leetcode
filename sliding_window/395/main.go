@@ -2,7 +2,8 @@ package main
 
 import "fmt"
 
-// window size variable
+// Divide and Conquer approach
+// the break point is the character first freq < k
 func longestSubstring(s string, k int) int {
 	return helper(s, k)
 }
