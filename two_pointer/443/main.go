@@ -24,16 +24,10 @@ func compress(chars []byte) int {
 
 			// number compress
 			if times > 1 {
-				// one digit
-				if times < 10 {
-					chars[place] = byte(times + '0')
+				digits := []byte(strconv.Itoa(times))
+				for _, d := range digits {
+					chars[place] = d
 					place++
-				} else {
-					digits := []byte(strconv.Itoa(times))
-					for _, d := range digits {
-						chars[place] = d
-						place++
-					}
 				}
 			}
 
