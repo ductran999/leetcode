@@ -17,7 +17,7 @@ func Constructor(nums []int) NumArray {
 		sum := nums[i] + n.prefixSum[i-1]
 		n.prefixSum = append(n.prefixSum, sum)
 	}
-	fmt.Println(n.prefixSum)
+
 	return n
 }
 
