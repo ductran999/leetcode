@@ -2,34 +2,33 @@ package main
 
 import "fmt"
 
-func isSamePattern(s1, s2 string) bool {
-	if len(s1) != len(s2) {
+// Check if a word follows the same pattern.
+// The idea: create a two-way mapping between chars in word and pattern.
+// Example: word = "bbc", pattern = "acx"
+// b → a
+// b → c : inconsistent mapping, so not the same pattern
+func isSamePattern(word, pattern string) bool {
+	if len(word) != len(pattern) {
 		return false
 	}
 
-	freq1 := make(map[byte]byte)
-	freq2 := make(map[byte]byte)
+	w2p := make(map[byte]byte) // word char -> pattern char
+	p2w := make(map[byte]byte) // pattern char -> word char
 
-	for i := 0; i < len(s1); i++ {
-		ch1, ch2 := s1[i], s2[i]
+	for i := 0; i < len(word); i++ {
+		w, p := word[i], pattern[i]
 
-		// Check char of string 1 map to string 2
-		if val, ok := freq1[ch2]; ok {
-			if val != ch1 {
-				return false
-			}
-		} else {
-			freq1[ch2] = ch1
+		// Check mapping consistency
+		if v, ok := w2p[w]; ok && v != p {
+			return false
+		}
+		if v, ok := p2w[p]; ok && v != w {
+			return false
 		}
 
-		// Check char of string 2 map to string 1
-		if val, ok := freq2[ch1]; ok {
-			if val != ch2 {
-				return false
-			}
-		} else {
-			freq2[ch1] = ch2
-		}
+		// Assign mapping if not already set
+		w2p[w] = p
+		p2w[p] = w
 	}
 
 	return true
@@ -38,6 +37,7 @@ func isSamePattern(s1, s2 string) bool {
 func findAndReplacePattern(words []string, pattern string) []string {
 	ans := []string{}
 	for _, word := range words {
+		// append word has same pattern into ans array
 		if isSamePattern(word, pattern) {
 			ans = append(ans, word)
 		}
