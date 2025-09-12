@@ -1,16 +1,26 @@
 package main
 
+import "fmt"
+
 type Iterator struct {
+	arr []int
+	idx int
 }
 
-func (this *Iterator) hasNext() bool {
-	// Returns true if the iteration has more elements.
-	return true
+func NewIterator(nums []int) *Iterator {
+	return &Iterator{
+		arr: nums,
+		idx: -1,
+	}
 }
 
-func (this *Iterator) next() int {
-	// Returns the next element in the iteration.
-	return 1
+func (it *Iterator) hasNext() bool {
+	return it.idx < len(it.arr)-1
+}
+
+func (it *Iterator) next() int {
+	it.idx++
+	return it.arr[it.idx]
 }
 
 type PeekingIterator struct {
@@ -29,27 +39,37 @@ func Constructor(iter *Iterator) *PeekingIterator {
 	}
 }
 
-func (this *PeekingIterator) hasNext() bool {
+func (pk *PeekingIterator) hasNext() bool {
 	// the iterator is go to end but not pop the last element
-	if !this.iter.hasNext() && !this.stackEmpty {
+	if !pk.iter.hasNext() && !pk.stackEmpty {
 		return true
 	}
-	if !this.iter.hasNext() && this.stackEmpty {
+	if !pk.iter.hasNext() && pk.stackEmpty {
 		return false
 	}
-	return this.iter.hasNext()
+	return pk.iter.hasNext()
 }
 
-func (this *PeekingIterator) next() int {
-	this.prevVal = this.currVal
-	this.currVal = this.iter.next()
-	if this.currVal < 0 {
+func (pk *PeekingIterator) next() int {
+	pk.prevVal = pk.currVal
+	pk.currVal = pk.iter.next()
+	if pk.currVal < 0 {
 		// the pointer is point out of list
-		this.stackEmpty = true
+		pk.stackEmpty = true
 	}
-	return this.prevVal
+	return pk.prevVal
 }
 
-func (this *PeekingIterator) peek() int {
-	return this.currVal
+func (pk *PeekingIterator) peek() int {
+	return pk.currVal
+}
+
+func main() {
+	nums := []int{1, 2, 3}
+	itr := NewIterator(nums)
+
+	pk := Constructor(itr)
+	fmt.Println(pk.next())
+	fmt.Println(pk.hasNext())
+	fmt.Println(pk.peek())
 }
