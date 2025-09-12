@@ -3,21 +3,17 @@ package main
 import "fmt"
 
 func sumZero(n int) []int {
-	if n == 1 {
-		return []int{0}
-	}
-
-	init := 1
 	ans := make([]int, n)
-	for i := 0; i < n; i++ {
-		if i%2 == 0 {
-			ans[i] = init
-		} else {
-			ans[i] = -init
-			init++
-		}
+
+	// Fill the array with pairs (+x, -x)
+	val := 1
+	for i := 0; i+1 < n; i += 2 {
+		ans[i] = val    // positive
+		ans[i+1] = -val // negative
+		val++
 	}
 
+	// If n is odd, set the last element to 0 to balance the sum
 	if n%2 != 0 {
 		ans[n-1] = 0
 	}
