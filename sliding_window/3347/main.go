@@ -83,6 +83,5 @@ func main() {
 	nums := []int{1, 4, 5}
 	k := 1
 	numOperations := 2
-
 	fmt.Println(maxFrequency(nums, k, numOperations))
 }
